@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './App.module.css';
 import { SearchBar } from './SearchBar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import Loader from './Loader/Loader';
 
 export class App extends Component {
   constructor() {
@@ -55,10 +56,11 @@ export class App extends Component {
   };
 
   render() {
-    const { images } = this.state;
+    const { images, isLoading } = this.state;
     return (
       <div className={styles.App}>
         <SearchBar onSubmit={this.handleSubmit} />
+        {isLoading && <Loader />}
         <ImageGallery images={images} />
       </div>
     )
