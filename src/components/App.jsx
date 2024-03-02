@@ -4,6 +4,7 @@ import styles from './App.module.css';
 import { SearchBar } from './SearchBar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
+import { Button } from './Button/Button';
 
 export class App extends Component {
   constructor() {
@@ -55,6 +56,10 @@ export class App extends Component {
     }
   };
 
+  handleMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  };
+
   render() {
     const { images, isLoading } = this.state;
     return (
@@ -62,6 +67,9 @@ export class App extends Component {
         <SearchBar onSubmit={this.handleSubmit} />
         {isLoading && <Loader />}
         <ImageGallery images={images} />
+        {images.length > 0 && !isLoading && (
+          <Button onClick={this.handleMore} label="Load more" />
+        )}
       </div>
     )
   }
