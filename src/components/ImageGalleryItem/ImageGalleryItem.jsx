@@ -6,13 +6,14 @@ export class ImageGalleryItem extends Component {
         src: "",
         alt: "",
         large: "",
+        onClick: () => {},
     }
 
     render() {
-        const { src, alt, large } = this.props;
+        const { src, alt, large, onClick } = this.props;
         return (
             <li className={styles.ImageGalleryItem}>
-                <img src={src} alt={alt} data-large={large} />
+                <img src={src} alt={alt} onClick={onClick} data-large={large} />
             </li>
         )
     }

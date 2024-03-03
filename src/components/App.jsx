@@ -5,6 +5,7 @@ import { SearchBar } from './SearchBar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import { Button } from './Button/Button';
+import Modal from './Modal/Modal';
 
 export class App extends Component {
   constructor() {
@@ -13,8 +14,10 @@ export class App extends Component {
       searchQuery: '',
       page: 1,
       images: [],
-      largeImageURL: '',
       isLoading: false,
+      largeURL: "",
+      modalAlt: "",
+      modalIsOpen: false,
     };
   }
 
@@ -60,16 +63,44 @@ export class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
+  openModal = (e) => {
+    const img = e.currentTarget;
+    const large = img.getAttribute("data-large");
+    const alt = img.alt;
+    this.setState({
+      largeURL: large,
+      modalAlt: alt,
+      modalIsOpen: true,
+    });
+    window.addEventListener("keydown", this.handleKey);
+  }
+
+  closeModal = () => {
+    this.setState({
+      largeURL: "",
+      modalAlt: "",
+      modalIsOpen: false,
+    });
+    window.removeEventListener("keydown", this.handleKey);
+  }
+
+  handleKey = (e) => {
+    if (e.code === "Escape") {
+      this.closeModal();
+    }
+  }
+
   render() {
-    const { images, isLoading } = this.state;
+    const { images, isLoading, largeURL, modalAlt, modalIsOpen } = this.state;
     return (
       <div className={styles.App}>
         <SearchBar onSubmit={this.handleSubmit} />
         {isLoading && <Loader />}
-        <ImageGallery images={images} />
+        <ImageGallery images={images} onClick={this.openModal} />
         {images.length > 0 && !isLoading && (
           <Button onClick={this.handleMore} label="Load more" />
         )}
+        {modalIsOpen && <Modal src={largeURL} alt={modalAlt} onClick={this.closeModal} />}
       </div>
     )
   }
