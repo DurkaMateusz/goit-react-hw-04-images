@@ -15,6 +15,7 @@ export default function App() {
   const [largeURL, setLargeURL] = useState("");
   const [modalAlt, setModalAlt] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
   
   useEffect(() => {
     const addImages = async () => {
@@ -22,6 +23,7 @@ export default function App() {
        setIsLoading(true);
        const { data } = await fetchImages(searchQuery, currentPage);
        setImages((prev) => [...prev, ...data.hits]);
+       setTotalPages(Math.ceil(data.totalHits / 12));
       } catch (error) {
         console.error('Error fetching data: ', error);
       } finally {
@@ -73,7 +75,7 @@ export default function App() {
         <SearchBar onSubmit={handleSubmit} />
         {isLoading && <Loader />}
         <ImageGallery images={images} onClick={openModal} />
-        {images.length > 0 && !isLoading && (
+        {images.length > 0 && !isLoading && currentPage < totalPages && (
           <Button onClick={handleMore} label="Load more" />
         )}
         {modalIsOpen && <Modal src={largeURL} alt={modalAlt} onClick={closeModal} />}
