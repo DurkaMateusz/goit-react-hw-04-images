@@ -4,7 +4,7 @@ import { SearchBar } from './SearchBar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import { Button } from './Button/Button';
-import Modal from './Modal/Modal';
+import {Modal} from './Modal/Modal';
 import { fetchImages } from './FetchImages/FetchImages';
 
 export default function App() {
