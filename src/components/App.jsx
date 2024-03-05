@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
 import { SearchBar } from './SearchBar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import Loader from './Loader/Loader';
+import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
-import {Modal} from './Modal/Modal';
+import { Modal } from './Modal/Modal';
 import { fetchImages } from './FetchImages/FetchImages';
 
 export default function App() {
@@ -67,9 +67,7 @@ export default function App() {
       closeModal();
     }
   }
-
-  
-    
+   
     return (
       <div className={styles.App}>
         <SearchBar onSubmit={handleSubmit} />
