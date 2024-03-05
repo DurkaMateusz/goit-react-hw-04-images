@@ -4,3 +4,8 @@
     grid-gap: 16px;
     padding-bottom: 24px;
   }
+
+  .NoResults {
+    text-align: center;
+    padding-block: 20px;
+}

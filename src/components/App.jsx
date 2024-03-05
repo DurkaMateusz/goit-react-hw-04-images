@@ -76,7 +76,7 @@ export default function App() {
         <SearchBar onSubmit={handleSubmit} />
         {isLoading && <Loader />}
         <ImageGallery images={images} onClick={openModal} />
-        {noResults && <p>No images found, please search again</p>}
+        {noResults && <p className={styles.NoResults}>No images found, please search again</p>}
         {images.length > 0 && !isLoading && currentPage < totalPages && (
           <Button onClick={handleMore} label="Load more" />
         )}
